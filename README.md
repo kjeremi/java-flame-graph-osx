@@ -25,4 +25,4 @@ You can zoom in by clicking on a stack.
 
 ## Example 
 
-[Exemple of java flame graph](https://raw.githubusercontent.com/kjeremi/java-flame-graph-osx/master/flame.png)
+![Exemple of java flame graph](https://raw.githubusercontent.com/kjeremi/java-flame-graph-osx/master/flame.png)
