@@ -5,16 +5,10 @@
 PROFILED_PID=$(jps -v |grep $1 | awk '{print $1}')
 STACKFILE=stack_$PROFILED_PID
 rm -f "$STACKFILE"
-
-echo "Getting stacktraces from process $PROFILED_PID... Will stop on ^C or when the process exits."
-
-while true; do
-	    jstack "$PROFILED_PID" >> "$STACKFILE" && sleep 0.01 || break
-    done
-
-    echo
+createGraph ()
+{
+	echo
     echo "Done! Stacks saved to $STACKFILE"
-
 TMPSTACKS=/tmp/flamegraph-stacks-collapsed.txt
 TMPPALETTE=/tmp/flamegraph-palette.map
 
@@ -29,3 +23,16 @@ cat $TMPPALETTE | grep -v '\.read' | grep -v '\.write' | grep -v 'socketRead' | 
 ./flamegraph.pl --cp --colors=io $TMPSTACKS > stack_$PROFILED_PID.svg
 
 echo "Done! Now see the output in stack_$PROFILED_PID.svg"
+exit 0
+}
+
+echo "Getting stacktraces from process $PROFILED_PID... Will stop on ^C or when the process exits."
+trap createGraph SIGINT SIGTERM
+while true; do
+	    jstack "$PROFILED_PID" >> "$STACKFILE" && sleep 0.01 || break
+    done
+createGraph
+    
+
+
+
