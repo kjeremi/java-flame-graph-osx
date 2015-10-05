@@ -23,4 +23,6 @@ It's not a time line the stacks aren't in chronological order.
 
 You can zoom in by clicking on a stack. 
 
+## Example 
 
+[Exemple of java flame graph](https://raw.githubusercontent.com/kjeremi/java-flame-graph-osx/master/flame.png)
